@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">dolphin_new_form.grid_record_grid_list_data_source</item>
+            <item name="deps" xsi:type="string">dolphin_new_form.grid_record_grid_list_data_source</item>
+        </item>
+<!--        <item name="label" xsi:type="string" translate="true">Add New Record</item>-->
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">dolphin_new_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Dolphin\CustomForms\Block\Adminhtml\Edit\Button\Back</item>
+            <item name="save" xsi:type="string">Dolphin\CustomForms\Block\Adminhtml\Edit\Save</item>
+        </item>
+    </argument>
+    <dataSource name="grid_record_grid_list_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Dolphin\CustomForms\Model\DataProvider</argument>
+            <argument name="name" xsi:type="string">grid_record_grid_list_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <fieldset name="general_information">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="string" translate="true">General Information</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+        <field name="name" sortOrder="10" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Name</label>
+            </settings>
+        </field>
+        <field name="email" sortOrder="20" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Email</label>
+            </settings>
+        </field>
+        <field name="phoneno" sortOrder="30" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Phoneno</label>
+            </settings>
+        </field>
+        <field name="custom_formbuilder_data" formElement="hidden">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+<!--                    <item name="source" xsi:type="string">formbuilder_hidden_data</item>-->
+                </item>
+            </argument>
+        </field>
+        <field name="textarea_example">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="cols" xsi:type="number">15</item>
+                    <item name="rows" xsi:type="number">5</item>
+                    <item name="label" translate="true" xsi:type="string">Create Form</item>
+                    <item name="dataType" translate="true" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <htmlContent name="dolphin_form_builder">
+                <block name="html_contents">
+                    <arguments>
+                        <argument name="template" xsi:type="string">
+                            Dolphin_CustomForms::form-builder.phtml
+                        </argument>
+                    </arguments>
+                </block>
+            </htmlContent>
+    </fieldset>
+</form>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Created By : MageDelight Pvt. Ltd.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="dolphin_customer" resource="default" engine="innodb" comment="dolphin customer">
+        <column xsi:type="smallint" name="id" padding="7" unsigned="false" nullable="false" identity="true" comment="ID" />
+        <column xsi:type="varchar" name="name" length="20" comment="Name" />
+        <column xsi:type="varchar" name="email" length="100" comment="Email" />
+        <column xsi:type="varchar" name="phoneno" length="255" comment="phoneno" />
+        <column xsi:type="text" name="custom_formbuilder_data" nullable="true" comment="Custom Form Builder Data"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id" />
+        </constraint>
+    </table>
+    <table name="dolphin_custom_form_data" resource="default" engine="innodb" comment="dolphin custom form data">
+        <column xsi:type="smallint" name="id" padding="7" unsigned="false" nullable="false" identity="true" comment="ID" />
+        <column xsi:type="varchar" name="widget_id" length="20" comment="Widget_Id" />
+        <column xsi:type="varchar" name="widget_name" length="100" comment="Widget_Name" />
+        <column xsi:type="text" name="form_data" length="255" comment="Form_Data" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id" />
+        </constraint>
+    </table>
+</schema>

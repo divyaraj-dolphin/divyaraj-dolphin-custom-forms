@@ -1,0 +1,61 @@
+<script>
+    require(['jquery', 'jquery/ui'], function ($) {
+        // setTimeout(() => {
+        //     $('[name="textarea_example"]').val('Please Wait...');
+        // }, 5);
+        setTimeout(() => {
+            var getFormBuilder = $('[name="textarea_example"]');
+            var disableAttributes = {
+                disabledAttrs: [
+                    'inline',
+                    'access',
+                    'toggle',
+                    'other',
+                ],
+                disabledSubtypes: {
+                    text: ['color', 'tel'],
+                    date: ['time']
+                },
+                showActionButtons: false
+            }
+            var formBuilder = $(getFormBuilder).formBuilder(disableAttributes);
+            $(document).on('click', '.formSave', function (e) {
+                console.log(formBuilder.actions.getData());
+                $('[name="custom_formbuilder_data"]').val(formBuilder.actions.getData('json')).trigger('change');
+            });
+
+            formBuilder.promise.then(function () {
+                console.log("formBuilder has been initialized");
+
+                var url_my_string = "<?php echo $block->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]) ?>";
+
+                try {
+                    var myUrl = new URL(url_my_string);
+                    console.log("Full pathname:", myUrl.pathname);
+
+                    var segments = myUrl.pathname.split('/');
+                    var id = findNumericSegment(segments);
+                    console.log("id:", id);
+
+                    if (id) {
+                        console.log($('[name="custom_formbuilder_data"]').val());
+                        formBuilder.actions.setData($('[name="custom_formbuilder_data"]').val());
+                    }
+
+                } catch (error) {
+                    console.error("Error parsing URL:", error);
+                }
+            });
+
+            function findNumericSegment(segments) {
+                for (var i = segments.length - 1; i >= 0; i--) {
+                    var segment = segments[i];
+                    if (!isNaN(segment) && segment.trim() !== '') {
+                        return segment;
+                    }
+                }
+                return null;
+            }
+        }, 200);
+    });
+</script>

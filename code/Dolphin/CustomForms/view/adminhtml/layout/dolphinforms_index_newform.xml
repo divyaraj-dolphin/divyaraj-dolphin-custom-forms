@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <update handle="editor"/>
+    <head>
+        <script src="Dolphin_CustomForms::js/jquery/jquery.min.js"/>
+        <script src="Dolphin_CustomForms::js/form-builder/form-builder.min.js"/>
+        <script src="Dolphin_CustomForms::js/form-builder/form-render.min.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="dolphin_new_form"/>
+<!--            <block class="Dolphin\CustomForms\Block\Adminhtml\FormBuilder" name="customforms.formbuilder" template="Dolphin_CustomForms::form-builder.phtml"/>-->
+        </referenceContainer>
+    </body>
+</page>

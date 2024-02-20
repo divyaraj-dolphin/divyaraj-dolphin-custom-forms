@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dolphin_CustomForms::manage_forms" title="Dolphin - Manage Forms" translate="title" module="Dolphin_CustomForms" sortOrder="100" parent="Magento_Backend::content" resource="Dolphin_CustomForms::manage_forms"/>
+        <add id="Dolphin_CustomForms::dolphinforms"
+             title="Custom Forms"
+             module="Dolphin_CustomForms"
+             sortOrder="60"
+             parent="Dolphin_CustomForms::manage_forms"
+             action="dolphinforms/index/index"
+             resource="Dolphin_CustomForms::dolphinforms"
+        />
+        <add id="Dolphin_CustomForms::dolphinforms_formsubmission"
+             title="Form Submissions"
+             module="Dolphin_CustomForms"
+             sortOrder="60"
+             parent="Dolphin_CustomForms::manage_forms"
+             action="dolphinforms/index/formsubmission"
+             resource="Dolphin_CustomForms::dolphinforms"
+        />
+    </menu>
+</config>

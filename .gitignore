@@ -1,0 +1,5 @@
+.htaccess
+autoload.php
+bootstrap.php
+etc/*
+code/Mageplaza/*

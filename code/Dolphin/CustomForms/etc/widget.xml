@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Dolphin\CustomForms\Block\Widget\CustomFormWidget" id="dolphin_customforms">
+        <label>Dolphin Widget</label>
+        <description></description>
+        <parameters>
+            <parameter name="form_id" xsi:type="block" visible="true" required="true" sort_order="20">
+                <label translate="true">Form Chooser</label>
+                <block class="Dolphin\CustomForms\Block\Adminhtml\Widget\Chooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select Form...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

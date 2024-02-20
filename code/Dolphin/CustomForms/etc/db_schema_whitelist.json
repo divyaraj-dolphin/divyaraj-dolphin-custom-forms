@@ -1,0 +1,25 @@
+{
+    "dolphin_customer": {
+        "column": {
+            "id": true,
+            "name": true,
+            "email": true,
+            "phoneno": true,
+            "custom_formbuilder_data": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "dolphin_custom_form_data": {
+        "column": {
+            "id": true,
+            "widget_id": true,
+            "widget_name": true,
+            "form_data": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
