@@ -17,9 +17,9 @@
     </table>
     <table name="dolphin_custom_form_data" resource="default" engine="innodb" comment="dolphin custom form data">
         <column xsi:type="smallint" name="id" padding="7" unsigned="false" nullable="false" identity="true" comment="ID" />
-        <column xsi:type="varchar" name="widget_id" length="20" comment="Widget_Id" />
-        <column xsi:type="varchar" name="widget_name" length="100" comment="Widget_Name" />
-        <column xsi:type="text" name="form_data" length="255" comment="Form_Data" />
+        <column xsi:type="varchar" name="form_id" length="20" comment="Form_Id" />
+        <column xsi:type="varchar" name="form_name" length="100" comment="Form_Name" />
+        <column xsi:type="text" name="form_data" comment="Form_Data" />
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id" />
         </constraint>

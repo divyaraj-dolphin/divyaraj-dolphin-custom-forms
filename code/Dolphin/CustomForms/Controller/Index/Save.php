@@ -30,8 +30,8 @@ class Save extends Action
                     $widgetName = $formData['form_name'];
                     $formDataModel = $this->formdataFactory->create();
                     $formDataModel->setData([
-                        'widget_id' => $formId,
-                        'widget_name' => $widgetName,
+                        'form_id' => $formId,
+                        'form_name' => $widgetName,
                         'form_data' => json_encode($formData),
                     ]);
                     $formDataModel->save();

@@ -2,8 +2,8 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">dolphin_form_submissions.dolphin_form_submissions_data_source</item>
-            <item name="deps" xsi:type="string">dolphin_form_submissions.dolphin_form_submissions_data_source</item>
+            <item name="provider" xsi:type="string">dolphin_form_submissions.dolphin_form_submission_data</item>
+            <item name="deps" xsi:type="string">dolphin_form_submissions.dolphin_form_submission_data</item>
         </item>
         <item name="spinner" xsi:type="string">grid_records_columns</item>
     </argument>
@@ -19,24 +19,24 @@
         <filters name="listing_filters"/>
         <paging name="listing_paging"/>
         <exportButton name="export_button"/>
-<!--        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions" class="\Magento\Catalog\Ui\Component\Product\MassAction">-->
-<!--            <action name="delete">-->
-<!--                <settings>-->
-<!--                    <confirm>-->
-<!--                        <message translate="true">Delete selected items?</message>-->
-<!--                        <title translate="true">Delete items</title>-->
-<!--                    </confirm>-->
-<!--                    <url path="*/*/massdelete" />-->
-<!--                    <type>delete</type>-->
-<!--                    <label translate="true">Delete</label>-->
-<!--                </settings>-->
-<!--            </action>-->
-<!--        </massaction>-->
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions" class="\Magento\Catalog\Ui\Component\Product\MassAction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="*/*/massdelete" />
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
     </listingToolbar>
-    <dataSource name="dolphin_form_submissions_data_source">
+    <dataSource name="dolphin_form_submission_data">
         <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">Dolphin\CustomForms\Model\DataProviderFormSubmission</argument>
-            <argument name="name" xsi:type="string">dolphin_form_submissions_data_source</argument>
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">dolphin_form_submission_data</argument>
             <argument name="primaryFieldName" xsi:type="string">id</argument>
             <argument name="requestFieldName" xsi:type="string">id</argument>
             <argument name="data" xsi:type="array">
@@ -68,19 +68,19 @@
                 </item>
             </argument>
         </column>
-        <column name="widget_id">
+        <column name="form_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Widget_Id</item>
+                    <item name="label" xsi:type="string" translate="true">Form_Id</item>
                 </item>
             </argument>
         </column>
-        <column name="widget_name" >
+        <column name="form_name">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Widget_Name</item>
+                    <item name="label" xsi:type="string" translate="true">Form_Name</item>
                 </item>
             </argument>
         </column>
@@ -92,14 +92,14 @@
                 </item>
             </argument>
         </column>
-<!--        <actionsColumn name="actions" class="Dolphin\CustomForms\Ui\Component\Listing\Column\Actions">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="config" xsi:type="array">-->
-<!--                    <item name="resizeEnabled" xsi:type="boolean">false</item>-->
-<!--                    <item name="resizeDefaultWidth" xsi:type="string">107</item>-->
-<!--                    <item name="indexField" xsi:type="string">id</item>-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--        </actionsColumn>-->
+        <actionsColumn name="actions" class="Dolphin\CustomForms\Ui\Component\Listing\Column\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </actionsColumn>
     </columns>
 </listing>
