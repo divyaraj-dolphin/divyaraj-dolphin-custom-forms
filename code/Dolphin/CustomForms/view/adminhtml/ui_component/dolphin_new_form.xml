@@ -37,15 +37,49 @@
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="collapsible" xsi:type="boolean">false</item>
-                <item name="label" xsi:type="string" translate="true">General Information</item>
+                <item name="label" xsi:type="string" translate="true">Form Builder</item>
                 <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+        <field name="textarea_example">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="cols" xsi:type="number">15</item>
+                    <item name="rows" xsi:type="number">5</item>
+                    <item name="label" translate="true" xsi:type="string">Create Form</item>
+                    <item name="dataType" translate="true" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <htmlContent name="dolphin_form_builder">
+            <block name="html_contents">
+                <arguments>
+                    <argument name="template" xsi:type="string">
+                        Dolphin_CustomForms::form-builder.phtml
+                    </argument>
+                </arguments>
+            </block>
+        </htmlContent>
+    </fieldset>
+    <fieldset name="form_settings">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Form Settings</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="canShow" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="string">30</item>
             </item>
         </argument>
         <field name="name" sortOrder="10" formElement="input">
             <settings>
                 <dataType>text</dataType>
                 <visible>true</visible>
-                <label translate="true">Name</label>
+                <label translate="true">Form Name</label>
             </settings>
         </field>
         <field name="email" sortOrder="20" formElement="input">
@@ -66,32 +100,9 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-<!--                    <item name="source" xsi:type="string">formbuilder_hidden_data</item>-->
+                    <!--                    <item name="source" xsi:type="string">formbuilder_hidden_data</item>-->
                 </item>
             </argument>
         </field>
-        <field name="textarea_example">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="cols" xsi:type="number">15</item>
-                    <item name="rows" xsi:type="number">5</item>
-                    <item name="label" translate="true" xsi:type="string">Create Form</item>
-                    <item name="dataType" translate="true" xsi:type="string">text</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">false</item>
-                    </item>
-                </item>
-            </argument>
-        </field>
-        <htmlContent name="dolphin_form_builder">
-                <block name="html_contents">
-                    <arguments>
-                        <argument name="template" xsi:type="string">
-                            Dolphin_CustomForms::form-builder.phtml
-                        </argument>
-                    </arguments>
-                </block>
-            </htmlContent>
     </fieldset>
 </form>

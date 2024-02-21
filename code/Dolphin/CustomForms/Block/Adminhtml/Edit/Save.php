@@ -9,7 +9,7 @@ class Save implements ButtonProviderInterface
     public function getButtonData()
     {
         return [
-            'label' => __('Save'),
+            'label' => __('Save Form'),
             'class' => 'save primary formSave',
             'data_attribute' => [
                 'mage-init' => ['button' => ['event' => 'save']],
