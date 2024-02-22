@@ -16,11 +16,37 @@
                     text: ['color', 'tel'],
                     date: ['time']
                 },
-                showActionButtons: false
+                typeUserEvents: {
+                        'text': {
+                            onadd: function(fld) {
+                            var $nameFieldValue = $('.fld-name').val();
+                            var nameField = $('.fld-name');
+                            if (/^text/.test($nameFieldValue)) {
+                                console.log("match found");
+                                setTimeout(() => {
+                                    nameField.val('custom_input');
+                                }, 2000);
+                            } else {
+                                console.log("match not found");
+                            }
+                        }
+                    }
+                },
+                // showActionButtons: false
+                scrollToFieldOnAdd: false
             }
             var formBuilder = $(getFormBuilder).formBuilder(disableAttributes);
             $(document).on('click', '.formSave', function (e) {
-                console.log(formBuilder.actions.getData());
+                // console.log(formBuilder.actions.getData());
+                $("form").on('save', function (event) {
+                    var $nameFieldValueTest = $('.fld-name').val();
+                    if ($nameFieldValueTest.includes('_')) {
+                        console.log("Yes, it has an underscore with name");
+                        event.preventDefault();
+                    } else {
+                        console.log("It not has an underscore with name");
+                    }   
+                });
                 $('[name="custom_formbuilder_data"]').val(formBuilder.actions.getData('json')).trigger('change');
             });
 
