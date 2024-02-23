@@ -1,7 +1,7 @@
 <?php
 /** @var Dolphin\CustomForms\Block\Widget\CustomFormWidget $block */
 
-$formBuilderData = $block->getData('custom_formbuilder_data');
+$formBuilderData = $block->getData('formbuilder_data');
 
 
 if (is_string($formBuilderData) && !empty($formBuilderData)) {
@@ -30,6 +30,7 @@ if (is_string($formBuilderData) && !empty($formBuilderData)) {
                                 <?php if ($field['type'] === 'textarea'): ?>
                                     <textarea name="<?= $field['name'] ?>" class="<?= $field['className'] ?>" <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>
                                         <?php if (array_key_exists('maxlength', $field)): ?> maxlength="<?= $field['maxlength']; ?>" <?php endif; ?>
+                                        <?php if (array_key_exists('rows', $field)): ?> rows="<?= $field['rows']; ?>" <?php endif; ?>
                                     ><?php if (array_key_exists('value', $field)): ?> <?= $field['value']; ?> <?php endif; ?></textarea>
                                 <?php elseif ($field['type'] === 'autocomplete'): ?>
                                     <input type="text" name="<?= $field['name'] ?>" class="<?= $field['className'] ?>" <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>>
@@ -121,7 +122,7 @@ if (is_string($formBuilderData) && !empty($formBuilderData)) {
                     </div>
                 <?php endforeach; ?>
                 <input type="hidden" name="form_id" value="<?= $block->getData('form_id') ?>">
-                <input type="hidden" name="form_name" value="<?= $block->getData('name') ?>">
+                <input type="hidden" name="form_name" value="<?= $block->getData('form_name') ?>">
             </fieldset>
         </form>
         <?php

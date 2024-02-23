@@ -6,7 +6,7 @@ use Magento\Framework\Model\AbstractModel;
 
 class DolphinTable extends AbstractModel
 {
-    const CACHE_TAG = 'dolphin_customforms';
+    const CACHE_TAG = 'dolphin_custom_form';
 
     protected $_idFieldName = 'id';
 

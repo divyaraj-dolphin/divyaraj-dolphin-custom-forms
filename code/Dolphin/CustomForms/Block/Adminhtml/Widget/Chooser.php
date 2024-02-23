@@ -134,13 +134,13 @@ class Chooser extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _prepareColumns()
     {
         $this->addColumn(
-            'custom_id',
+            'id',
             ['header' => __('ID'), 'align' => 'right', 'index' => 'id', 'width' => 50]
         );
 
-        $this->addColumn('custom_name', ['header' => __('Name'), 'align' => 'left', 'index' => 'name']);
+        $this->addColumn('form_name', ['header' => __('Form Name'), 'align' => 'left', 'index' => 'form_name']);
 
-        $this->addColumn('custom_form_builder', ['header' => __('Form-Builder'), 'align' => 'left', 'index' => 'custom_formbuilder_data']);
+        $this->addColumn('form_builder', ['header' => __('Form-Builder'), 'align' => 'left', 'index' => 'formbuilder_data']);
 
 //        $this->addColumn('custom_email', ['header' => __('Email'), 'align' => 'left', 'index' => 'email']);
 
