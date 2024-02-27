@@ -1,10 +1,15 @@
 <script>
-    require(['jquery', 'jquery/ui'], function ($) {
+    require([
+        'Magento_Ui/js/lib/validation/validator',
+        'jquery',
+        'jquery/ui',
+        'mage/translate'
+    ], function (validator, $) {
         // setTimeout(() => {
-        //     $('[name="textarea_example"]').val('Please Wait...');
+        //     $('[name="textarea_formbuilder"]').val('Please Wait...');
         // }, 5);
         setTimeout(() => {
-            var getFormBuilder = $('[name="textarea_example"]');
+            var getFormBuilder = $('[name="textarea_formbuilder"]');
             var disableAttributes = {
                 disabledAttrs: [
                     'inline',
@@ -14,40 +19,31 @@
                 ],
                 disabledSubtypes: {
                     text: ['color', 'tel'],
-                    date: ['time']
+                    date: ['time'],
+                    textarea: ['tinymce', 'quill']
                 },
                 typeUserEvents: {
-                        'text': {
+                    '*': {
                             onadd: function(fld) {
-                            var $nameFieldValue = $('.fld-name').val();
-                            var nameField = $('.fld-name');
-                            if (/^text/.test($nameFieldValue)) {
-                                console.log("match found");
+                            var nameAttrVal = $('.fld-name').val();
+                            var nameAttrText = $('.fld-name');
+                            if (nameAttrVal) {
                                 setTimeout(() => {
-                                    nameField.val('custom_input');
-                                }, 2000);
+                                    nameAttrText.val('input_field');
+                                }, 1000);
                             } else {
                                 console.log("match not found");
                             }
                         }
-                    }
+                    },
                 },
-                // showActionButtons: false
+                showActionButtons: true,
                 scrollToFieldOnAdd: false
             }
             var formBuilder = $(getFormBuilder).formBuilder(disableAttributes);
-            $(document).on('click', '.formSave', function (e) {
+            $(document).on('click', '.formSave', function (event) {
                 // console.log(formBuilder.actions.getData());
-                $("form").on('save', function (event) {
-                    var $nameFieldValueTest = $('.fld-name').val();
-                    if ($nameFieldValueTest.includes('_')) {
-                        console.log("Yes, it has an underscore with name");
-                        event.preventDefault();
-                    } else {
-                        console.log("It not has an underscore with name");
-                    }   
-                });
-                $('[name="custom_formbuilder_data"]').val(formBuilder.actions.getData('json')).trigger('change');
+                $('[name="formbuilder_data"]').val(formBuilder.actions.getData('json')).trigger('change');
             });
 
             formBuilder.promise.then(function () {
@@ -64,8 +60,8 @@
                     console.log("id:", id);
 
                     if (id) {
-                        console.log($('[name="custom_formbuilder_data"]').val());
-                        formBuilder.actions.setData($('[name="custom_formbuilder_data"]').val());
+                        console.log($('[name="formbuilder_data"]').val());
+                        formBuilder.actions.setData($('[name="formbuilder_data"]').val());
                     }
 
                 } catch (error) {
@@ -83,5 +79,22 @@
                 return null;
             }
         }, 200);
+
+        validator.addRule(
+            'custom-validation',
+            function (value) {
+                $(document).on('click', '.formSave', function () {
+                    console.log('button clicked');
+                    var nameFieldVal = $('.fld-name').val();
+                    var nameField = $('.fld-name');
+                    if (nameFieldVal.includes('_')) {
+                        console.log("it has an underscore with name");
+                        $(nameField).closest('li').css('border', '1px solid red');
+                    } else {
+                        return true;
+                    }
+                })
+            }, $.mage.__('Some of name attribute has an underscore ( __ ) within its value.')
+        );
     });
 </script>

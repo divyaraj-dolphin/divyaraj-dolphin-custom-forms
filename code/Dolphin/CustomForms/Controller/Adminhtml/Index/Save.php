@@ -41,10 +41,9 @@ class Save extends Action
 
             // Update fields
             $model->addData([
-                "name" => $data['name'],
-                "email" => $data['email'],
-                "phoneno" => $data['phoneno'],
-                "custom_formbuilder_data" => $data['custom_formbuilder_data'],
+                "form_name" => $data['form_name'],
+                "thankyou_message" => $data['thankyou_message'],
+                "formbuilder_data" => $data['formbuilder_data'],
             ]);
 //            $this->logger->info("Form Builder Hidden Data: " . $data['formbuilder_hidden_data']);
             // Save the record

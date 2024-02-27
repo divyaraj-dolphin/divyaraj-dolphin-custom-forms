@@ -76,7 +76,7 @@
                 </item>
             </argument>
         </column>
-        <column name="name">
+        <column name="form_name">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -84,23 +84,15 @@
                 </item>
             </argument>
         </column>
-        <column name="email" >
+        <column name="thankyou_message" >
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Email</item>
+                    <item name="label" xsi:type="string" translate="true">Thankyou Message</item>
                 </item>
             </argument>
         </column>
-        <column name="phoneno" >
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Phoneno</item>
-                </item>
-            </argument>
-        </column>
-        <column name="custom_formbuilder_data" >
+        <column name="formbuilder_data" >
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
