@@ -5,44 +5,59 @@
         'jquery/ui',
         'mage/translate'
     ], function (validator, $) {
-        // setTimeout(() => {
-        //     $('[name="textarea_formbuilder"]').val('Please Wait...');
-        // }, 5);
+        var id;
+
         setTimeout(() => {
             var getFormBuilder = $('[name="textarea_formbuilder"]');
-            var disableAttributes = {
+            var formBuilderAttributes = {
                 disabledAttrs: [
-                    'inline',
-                    'access',
-                    'toggle',
-                    'other',
-                ],
-                disabledSubtypes: {
-                    text: ['color', 'tel'],
-                    date: ['time'],
-                    textarea: ['tinymce', 'quill']
-                },
+                        'inline',
+                        'access',
+                        'toggle',
+                        'other',
+                    ],
+                    disabledSubtypes: {
+                        text: ['color', 'tel'],
+                        date: ['time'],
+                        textarea: ['tinymce', 'quill']
+                    },
                 typeUserEvents: {
                     '*': {
-                            onadd: function(fld) {
-                            var nameAttrVal = $('.fld-name').val();
-                            var nameAttrText = $('.fld-name');
-                            if (nameAttrVal) {
-                                setTimeout(() => {
-                                    nameAttrText.val('input_field');
-                                }, 1000);
-                            } else {
-                                console.log("match not found");
+                        onadd: function (fld) {
+                            if (!id) {
+                            var fieldNameVal = $('.fld-name', fld).val();
+                            var fieldName = $('.fld-name', fld);
+                                if (fieldNameVal) {
+                                    setTimeout(() => {
+                                        fieldName.val('');
+                                    }, 1000);
+                                } else {
+                                    console.log("match not found");
+                                }
+                            }
+                        },
+                        onclone: function (fld) {
+                            console.log(fld);
+                            if (!id) {
+                            var cloneFieldNameVal = $('.fld-name', fld).val();
+                            var cloneFieldName = $('.fld-name', fld);
+                                if (cloneFieldNameVal) {
+                                    setTimeout(() => {
+                                        cloneFieldName.val('');
+                                    }, 1000);
+                                } else {
+                                    console.log("match not found");
+                                }
                             }
                         }
-                    },
+                    }
                 },
-                showActionButtons: true,
+                showActionButtons: false,
                 scrollToFieldOnAdd: false
             }
-            var formBuilder = $(getFormBuilder).formBuilder(disableAttributes);
+            var formBuilder = $(getFormBuilder).formBuilder(formBuilderAttributes);
+
             $(document).on('click', '.formSave', function (event) {
-                // console.log(formBuilder.actions.getData());
                 $('[name="formbuilder_data"]').val(formBuilder.actions.getData('json')).trigger('change');
             });
 
@@ -56,14 +71,14 @@
                     console.log("Full pathname:", myUrl.pathname);
 
                     var segments = myUrl.pathname.split('/');
-                    var id = findNumericSegment(segments);
+                    id = findNumericSegment(segments);
+
                     console.log("id:", id);
 
                     if (id) {
                         console.log($('[name="formbuilder_data"]').val());
                         formBuilder.actions.setData($('[name="formbuilder_data"]').val());
                     }
-
                 } catch (error) {
                     console.error("Error parsing URL:", error);
                 }
@@ -83,18 +98,22 @@
         validator.addRule(
             'custom-validation',
             function (value) {
-                $(document).on('click', '.formSave', function () {
-                    console.log('button clicked');
-                    var nameFieldVal = $('.fld-name').val();
-                    var nameField = $('.fld-name');
-                    if (nameFieldVal.includes('_')) {
-                        console.log("it has an underscore with name");
-                        $(nameField).closest('li').css('border', '1px solid red');
+                var result = true;
+                $('.fld-name').each(function () {
+                    var fldValue = $(this).val();
+                    var fldElement = $(this).closest('li');
+
+                    if (fldValue.trim() === '' || fldValue !== fldValue.toLowerCase()) {
+                        fldElement.css('border', '1px solid red');
+                        result = false;
                     } else {
-                        return true;
+                        fldElement.css('border', '');
                     }
-                })
-            }, $.mage.__('Some of name attribute has an underscore ( __ ) within its value.')
+                });
+                console.log(result);
+                return result;
+            },
+            $.mage.__('The name attribute of the field cannot be empty, and it should be in lowercase within the value of the name attribute. Spaces are not allowed.')
         );
     });
 </script>
