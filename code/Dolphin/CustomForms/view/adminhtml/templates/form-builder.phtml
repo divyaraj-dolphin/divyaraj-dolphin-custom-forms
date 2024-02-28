@@ -52,7 +52,7 @@
                         }
                     }
                 },
-                showActionButtons: false,
+                showActionButtons: true,
                 scrollToFieldOnAdd: false
             }
             var formBuilder = $(getFormBuilder).formBuilder(formBuilderAttributes);
@@ -60,7 +60,6 @@
             $(document).on('click', '.formSave', function (event) {
                 $('[name="formbuilder_data"]').val(formBuilder.actions.getData('json')).trigger('change');
             });
-
             formBuilder.promise.then(function () {
                 console.log("formBuilder has been initialized");
 
@@ -102,9 +101,13 @@
                 $('.fld-name').each(function () {
                     var fldValue = $(this).val();
                     var fldElement = $(this).closest('li');
-
+                    var fldDash = fldValue.indexOf('-') >= 0;
                     if (fldValue.trim() === '' || fldValue !== fldValue.toLowerCase()) {
                         fldElement.css('border', '1px solid red');
+                        if (fldDash) {
+                            console.log('dash found in value');
+                            result = false;
+                        }
                         result = false;
                     } else {
                         fldElement.css('border', '');
