@@ -38,8 +38,7 @@ class Save extends Action
 
                     $this->messageManager->addSuccessMessage(__('Form data saved successfully.'));
                 } catch (\Exception $e) {
-                    $this->messageManager->addErrorMessage(__('An error occurred while saving the form data.'));
-                    $this->_objectManager->get(\Psr\Log\LoggerInterface::class)->critical($e);
+                    $this->messageManager->addError(__($e->getMessage()));
                 }
             }
         }

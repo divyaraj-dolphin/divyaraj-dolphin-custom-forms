@@ -102,21 +102,19 @@
                     var fldValue = $(this).val();
                     var fldElement = $(this).closest('li');
                     var fldDash = fldValue.indexOf('-') >= 0;
-                    if (fldValue.trim() === '' || fldValue !== fldValue.toLowerCase()) {
+                    if (fldValue.trim() === '' || fldValue !== fldValue.toLowerCase() || fldDash) {
                         fldElement.css('border', '1px solid red');
-                        if (fldDash) {
-                            console.log('dash found in value');
-                            result = false;
-                        }
+                        $(this).css('border', '1px solid red');
                         result = false;
                     } else {
                         fldElement.css('border', '');
+                        $(this).css('border', '');
                     }
                 });
                 console.log(result);
                 return result;
             },
-            $.mage.__('The name attribute of the field cannot be empty, and it should be in lowercase within the value of the name attribute. Spaces are not allowed.')
+            $.mage.__('The name attribute of the field cannot be empty and can`t contains dash (`-`) instead of use underscore (`_`), and it should be in lowercase within the value of the name attribute. Spaces are not allowed.')
         );
     });
 </script>
