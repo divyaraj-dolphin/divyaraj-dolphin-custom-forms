@@ -27,7 +27,6 @@ class Save extends Action
         $data = $this->getRequest()->getPostValue();
 
         try {
-            // Check if there is an existing record to update
             if (!empty($data['id'])) {
                 // Load the existing record
                 $model = $this->customFactory->create()->load($data['id']);
@@ -39,14 +38,11 @@ class Save extends Action
                 $message = 'Data inserted successfully.';
             }
 
-            // Update fields
             $model->addData([
                 "form_name" => $data['form_name'],
                 "thankyou_message" => $data['thankyou_message'],
                 "formbuilder_data" => $data['formbuilder_data'],
             ]);
-//            $this->logger->info("Form Builder Hidden Data: " . $data['formbuilder_hidden_data']);
-            // Save the record
             $model->save();
 
             $this->messageManager->addSuccess(__($message));
@@ -55,7 +51,6 @@ class Save extends Action
             $this->logger->info("Data wasn't saved");
         }
 
-        // Redirect to the listing page
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $resultRedirect->setPath('*/*/index');
         return $resultRedirect;
