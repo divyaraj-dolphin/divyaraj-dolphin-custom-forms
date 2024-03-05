@@ -56,7 +56,6 @@
                 scrollToFieldOnAdd: false
             }
             var formBuilder = $(getFormBuilder).formBuilder(formBuilderAttributes);
-
             $(document).on('click', '.formSave', function (event) {
                 $('[name="formbuilder_data"]').val(formBuilder.actions.getData('json')).trigger('change');
             });

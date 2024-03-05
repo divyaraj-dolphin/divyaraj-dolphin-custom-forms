@@ -76,11 +76,38 @@
             </item>
         </argument>
         <field name="form_name" sortOrder="10" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string">Form Name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item><!-- this validates it as required -->
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="form_status" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">form_status</item>
+                </item>
+            </argument>
             <settings>
-                <dataType>text</dataType>
-                <visible>true</visible>
-                <label translate="true">Form Name</label>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable</label>
+                <dataScope>form_status</dataScope>
             </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
         </field>
         <field name="thankyou_message">
             <argument name="data" xsi:type="array">
