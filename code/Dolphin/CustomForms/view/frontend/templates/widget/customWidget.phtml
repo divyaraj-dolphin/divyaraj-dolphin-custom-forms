@@ -3,132 +3,134 @@
 
 $formBuilderData = $block->getData('formbuilder_data');
 
-
-if (is_string($formBuilderData) && !empty($formBuilderData)) {
-    $decodedData = json_decode($formBuilderData, true);
+$form_status = $block->getData('form_status');
+if ($form_status) {
+    if (is_string($formBuilderData) && !empty($formBuilderData)) {
+        $decodedData = json_decode($formBuilderData, true);
 //    echo "<pre>";
 //    print_r($decodedData);
 //    exit;
-    if ($decodedData !== null && json_last_error() === JSON_ERROR_NONE) {
-        // JSON decoding was successful, and $decodedData is now an array
-        $formBuilderData = $decodedData;
+        if ($decodedData !== null && json_last_error() === JSON_ERROR_NONE) {
+            // JSON decoding was successful, and $decodedData is now an array
+            $formBuilderData = $decodedData;
 
-        ?>
-        <form class="form create account form-create-account dolphin-custom-form" action="<?= $block->getUrl('dolphinformsdata/index/save'); ?>"
-              method="post"
-              id="form-validate"
-              enctype="multipart/form-data"
-              autocomplete="off"
-              data-hasrequired="<?= __('* Required Fields') ?>"
-              data-mage-init='{"validation":{}}'>
-            <fieldset class="fieldset">
-                <?php foreach ($formBuilderData as $field): ?>
-                    <div class="field <?= $field['type'] ?> <?= !empty($field['required']) ? 'required' : '' ?>">
-                        <?php if (in_array($field['type'], ['text', 'number', 'textarea', 'autocomplete', 'date'])): ?>
-                            <label class="label" for="<?php  echo __($field['name']) ?>"><span><?php  echo __($field['label']) ?></span></label>
-                            <div class="control">
-                                <?php if ($field['type'] === 'textarea'): ?>
-                                    <textarea name="<?= $field['name'] ?>" class="<?= $field['className'] ?>" <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>
-                                        <?php if (array_key_exists('maxlength', $field)): ?> maxlength="<?= $field['maxlength']; ?>" <?php endif; ?>
-                                        <?php if (array_key_exists('rows', $field)): ?> rows="<?= $field['rows']; ?>" <?php endif; ?>
+            ?>
+            <form class="form create account form-create-account dolphin-custom-form form-validate" action="<?= $block->getUrl('dolphinformsdata/index/save'); ?>"
+                  method="post"
+                  id="form-validate"
+                  enctype="multipart/form-data"
+                  autocomplete="off"
+                  data-hasrequired="<?= __('* Required Fields') ?>"
+                  data-mage-init='{"validation":{}}'>
+                <fieldset class="fieldset" id="fieldset">
+                    <?php foreach ($formBuilderData as $field): ?>
+                        <div class="field <?= $field['type'] ?> <?= !empty($field['required']) ? 'required' : '' ?>">
+                            <?php if (in_array($field['type'], ['text', 'number', 'textarea', 'autocomplete', 'date'])): ?>
+                                <label class="label" for="<?php  echo __($field['name']) ?>"><span><?php  echo __($field['label']) ?></span></label>
+                                <div class="control">
+                                    <?php if ($field['type'] === 'textarea'): ?>
+                                        <textarea name="<?= $field['name'] ?>" class="<?= $field['className'] ?>" <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>
+                                            <?php if (array_key_exists('maxlength', $field)): ?> maxlength="<?= $field['maxlength']; ?>" <?php endif; ?>
+                                            <?php if (array_key_exists('rows', $field)): ?> rows="<?= $field['rows']; ?>" <?php endif; ?>
                                     ><?php if (array_key_exists('value', $field)): ?> <?= $field['value']; ?> <?php endif; ?></textarea>
-                                <?php elseif ($field['type'] === 'autocomplete'): ?>
-                                    <input type="text" name="<?= $field['name'] ?>" class="<?= $field['className'] ?>" <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>>
-                                <?php else: ?>
-                                    <input type="<?= $field['subtype'] ?>" name="<?= $field['name'] ?>"
-                                           class="<?= $field['className'] ?>"
-                                        <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>
-                                        <?php if (array_key_exists('value', $field)): ?> value="<?= $field['value']; ?>" <?php endif; ?>
-                                        <?php if (array_key_exists('min', $field)): ?> min="<?= $field['min']; ?>" <?php endif; ?>
-                                        <?php if (array_key_exists('max', $field)): ?> max="<?= $field['max']; ?>" <?php endif; ?>
-                                    >
-                                <?php endif; ?>
-                                <?php if(array_key_exists('description', $field)): ?>
-                                    <div class="field-tooltip toggle">
+                                    <?php elseif ($field['type'] === 'autocomplete'): ?>
+                                        <input type="text" name="<?= $field['name'] ?>" class="<?= $field['className'] ?>" <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>>
+                                    <?php else: ?>
+                                        <input type="<?= $field['subtype'] ?>" name="<?= $field['name'] ?>"
+                                               class="<?= $field['className'] ?>"
+                                            <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>
+                                            <?php if (array_key_exists('value', $field)): ?> value="<?= $field['value']; ?>" <?php endif; ?>
+                                            <?php if (array_key_exists('min', $field)): ?> min="<?= $field['min']; ?>" <?php endif; ?>
+                                            <?php if (array_key_exists('max', $field)): ?> max="<?= $field['max']; ?>" <?php endif; ?>
+                                        >
+                                    <?php endif; ?>
+                                    <?php if(array_key_exists('description', $field)): ?>
+                                        <div class="field-tooltip toggle">
                                             <span class="field-tooltip-action action-help"
                                                   data-bind="mageInit: {'dropdown':{'activeClass': '_active'}}"
                                                   data-toggle="dropdown"
                                                   aria-haspopup="true"
                                                   aria-expanded="false">
                                             </span>
-                                        <div class="field-tooltip-content" data-target="dropdown" aria-hidden="true">
-                                            <?= __($field['description']); ?>
+                                            <div class="field-tooltip-content" data-target="dropdown" aria-hidden="true">
+                                                <?= __($field['description']); ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        <?php elseif ($field['type'] === 'select' || $field['type'] === 'checkbox-group' || $field['type'] === 'radio-group'): ?>
-                            <label class="label" for="<?php  echo __($field['name']) ?>"><span><?php  echo __($field['label']) ?></span></label>
-                            <div class="control">
-                                <?php if ($field['type'] === 'select'): ?>
-                                    <select name="<?= $field['name'] ?>" class="<?= $field['className'] ?>" <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?> <?= ($field['multiple']) ? 'multiple="multiple"' : '' ?>>
-                                        <?php foreach ($field['values'] as $option): ?>
-                                            <option value="<?= $option['value'] ?>" <?= $option['selected'] ? 'selected' : '' ?>><?= $option['label'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                <?php elseif ($field['type'] === 'checkbox-group' || $field['type'] === 'radio-group'): ?>
-                                    <fieldset>
-<!--                                        <legend>--><?php //= $field['label'] ?><!--</legend>-->
-                                        <?php foreach ($field['values'] as $option): ?>
-                                            <label>
-                                                <input type="<?= $field['type'] === 'radio-group' ? 'radio' : 'checkbox' ?>" name="<?= $field['name'] ?>[]" value="<?= $option['value'] ?>" <?= $option['selected'] ? 'checked' : '' ?> <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>>
-                                                <?= $option['label'] ?>
-                                            </label>
-                                            <br>
-                                        <?php endforeach; ?>
-                                    </fieldset>
-                                <?php endif; ?>
-                                <?php if(array_key_exists('description', $field)): ?>
-                                    <div class="field-tooltip toggle">
+                                    <?php endif; ?>
+                                </div>
+                            <?php elseif ($field['type'] === 'select' || $field['type'] === 'checkbox-group' || $field['type'] === 'radio-group'): ?>
+                                <label class="label" for="<?php  echo __($field['name']) ?>"><span><?php  echo __($field['label']) ?></span></label>
+                                <div class="control">
+                                    <?php if ($field['type'] === 'select'): ?>
+                                        <select name="<?= $field['name'] ?>" class="<?= $field['className'] ?>" <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?> <?= ($field['multiple']) ? 'multiple="multiple"' : '' ?>>
+                                            <?php foreach ($field['values'] as $option): ?>
+                                                <option value="<?= $option['value'] ?>" <?= $option['selected'] ? 'selected' : '' ?>><?= $option['label'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    <?php elseif ($field['type'] === 'checkbox-group' || $field['type'] === 'radio-group'): ?>
+                                        <fieldset>
+                                            <!--                                        <legend>--><?php //= $field['label'] ?><!--</legend>-->
+                                            <?php foreach ($field['values'] as $option): ?>
+                                                <label>
+                                                    <input type="<?= $field['type'] === 'radio-group' ? 'radio' : 'checkbox' ?>" name="<?= $field['name'] ?>[]" value="<?= $option['value'] ?>" <?= $option['selected'] ? 'checked' : '' ?> <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>>
+                                                    <?= $option['label'] ?>
+                                                </label>
+                                                <br>
+                                            <?php endforeach; ?>
+                                        </fieldset>
+                                    <?php endif; ?>
+                                    <?php if(array_key_exists('description', $field)): ?>
+                                        <div class="field-tooltip toggle">
                                             <span class="field-tooltip-action action-help"
                                                   data-bind="mageInit: {'dropdown':{'activeClass': '_active'}}"
                                                   data-toggle="dropdown"
                                                   aria-haspopup="true"
                                                   aria-expanded="false">
                                             </span>
-                                        <div class="field-tooltip-content" data-target="dropdown" aria-hidden="true">
-                                            <?= __($field['description']); ?>
+                                            <div class="field-tooltip-content" data-target="dropdown" aria-hidden="true">
+                                                <?= __($field['description']); ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        <?php elseif ($field['type'] === 'file'): ?>
-                            <label class="label" for="<?php  echo __($field['name']) ?>"><span><?php  echo __($field['label']) ?></span></label>
-                            <div class="control">
-                                <input type="file" name="<?= $field['name'] ?>" class="<?= $field['className'] ?>"  <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>>
-                                <?php if(array_key_exists('description', $field)): ?>
-                                    <div class="field-tooltip toggle">
+                                    <?php endif; ?>
+                                </div>
+                            <?php elseif ($field['type'] === 'file'): ?>
+                                <label class="label" for="<?php  echo __($field['name']) ?>"><span><?php  echo __($field['label']) ?></span></label>
+                                <div class="control">
+                                    <input type="file" name="<?= $field['name'] ?>" class="<?= $field['className'] ?>"  <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>>
+                                    <?php if(array_key_exists('description', $field)): ?>
+                                        <div class="field-tooltip toggle">
                                             <span class="field-tooltip-action action-help"
                                                   data-bind="mageInit: {'dropdown':{'activeClass': '_active'}}"
                                                   data-toggle="dropdown"
                                                   aria-haspopup="true"
                                                   aria-expanded="false">
                                             </span>
-                                        <div class="field-tooltip-content" data-target="dropdown" aria-hidden="true">
-                                            <?= __($field['description']); ?>
+                                            <div class="field-tooltip-content" data-target="dropdown" aria-hidden="true">
+                                                <?= __($field['description']); ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        <?php elseif ($field['type'] === 'header'): ?>
-                            <h1><?= $field['label'] ?></h1>
-                        <?php elseif ($field['type'] === 'hidden'): ?>
-                            <input type="hidden" name="<?= $field['name'] ?>">
-                        <?php elseif ($field['type'] === 'paragraph'): ?>
-                            <p><?= $field['label'] ?></p>
-                        <?php elseif ($field['type'] === 'button'): ?>
-                            <button type="<?= $field['subtype'] ?>" class="<?= $field['className'] ?><?= $field['subtype'] === 'submit' ? ' action primary' : '' ?>"><?= $field['label'] ?></button>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-                <input type="hidden" name="form_id" value="<?= $block->getData('form_id') ?>">
-                <input type="hidden" name="form_name" value="<?= $block->getData('form_name') ?>">
-            </fieldset>
-        </form>
-        <?php
-    } else {
-        // JSON decoding failed, handle the error if needed
-        echo 'Error decoding JSON data. JSON_ERROR: ' . json_last_error_msg();
+                                    <?php endif; ?>
+                                </div>
+                            <?php elseif ($field['type'] === 'header'): ?>
+                                <h1><?= $field['label'] ?></h1>
+                            <?php elseif ($field['type'] === 'hidden'): ?>
+                                <input type="hidden" name="<?= $field['name'] ?>">
+                            <?php elseif ($field['type'] === 'paragraph'): ?>
+                                <p><?= $field['label'] ?></p>
+                            <?php elseif ($field['type'] === 'button'): ?>
+                                <button type="<?= $field['subtype'] ?>" class="<?= $field['className'] ?><?= $field['subtype'] === 'submit' ? ' action primary' : '' ?>"><?= $field['label'] ?></button>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                    <input type="hidden" name="form_id" value="<?= $block->getData('form_id') ?>">
+                    <input type="hidden" name="form_name" value="<?= $block->getData('form_name') ?>">
+                </fieldset>
+            </form>
+            <?php
+        } else {
+            // JSON decoding failed, handle the error if needed
+            echo 'Error decoding JSON data. JSON_ERROR: ' . json_last_error_msg();
+        }
     }
 }
 ?>

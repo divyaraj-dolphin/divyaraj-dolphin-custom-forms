@@ -42,10 +42,10 @@ class Save extends Action
                 "form_name" => $data['form_name'],
                 "thankyou_message" => $data['thankyou_message'],
                 "formbuilder_data" => $data['formbuilder_data'],
-                "is_enable" => $data['form_status']
+                "form_status" => $data['form_status']
             ]);
             $model->save();
-            $data['form_status'] = $model->getData('is_enable');
+            $data['form_status'] = $model->getData('form_status');
 
             $this->messageManager->addSuccess(__($message));
         } catch (\Exception $e) {

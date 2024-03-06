@@ -86,34 +86,31 @@
                 </item>
             </argument>
         </field>
-        <field name="form_status" formElement="checkbox">
+        <field name="form_status">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">form_status</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="boolean" xsi:type="string">boolean</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="dataScope" xsi:type="string">form_status</item>
                 </item>
             </argument>
-            <settings>
-                <dataType>boolean</dataType>
-                <label translate="true">Enable</label>
-                <dataScope>form_status</dataScope>
-            </settings>
-            <formElements>
-                <checkbox>
-                    <settings>
-                        <valueMap>
-                            <map name="false" xsi:type="number">0</map>
-                            <map name="true" xsi:type="number">1</map>
-                        </valueMap>
-                        <prefer>toggle</prefer>
-                    </settings>
-                </checkbox>
-            </formElements>
         </field>
         <field name="thankyou_message">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="cols" xsi:type="number">15</item>
+                    <item name="cols" xsi:type="number">30</item>
                     <item name="rows" xsi:type="number">5</item>
                     <item name="label" translate="true" xsi:type="string">Write a Thankyou Message...</item>
                     <item name="dataType" translate="true" xsi:type="string">text</item>
@@ -127,7 +124,6 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-                    <!--                    <item name="source" xsi:type="string">formbuilder_hidden_data</item>-->
                 </item>
             </argument>
         </field>
