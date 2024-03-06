@@ -1,12 +1,6 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 namespace Dolphin\CustomForms\Block\Adminhtml\Widget;
-/**
- * CMS block chooser for Wysiwyg CMS widget
- */
 class Chooser extends \Magento\Backend\Block\Widget\Grid\Extended
 {
     /**
@@ -122,7 +116,12 @@ class Chooser extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     protected function _prepareCollection()
     {
-        $this->setCollection($this->_collectionFactory->create());
+        $collection = $this->_collectionFactory->create();
+
+        // Add a filter to exclude records with form_status equal to 0
+        $collection->addFieldToFilter('form_status', ['eq' => 1]);
+
+        $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
@@ -133,6 +132,7 @@ class Chooser extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     protected function _prepareColumns()
     {
+
         $this->addColumn(
             'id',
             ['header' => __('ID'), 'align' => 'right', 'index' => 'id', 'width' => 50]
@@ -141,10 +141,6 @@ class Chooser extends \Magento\Backend\Block\Widget\Grid\Extended
         $this->addColumn('form_name', ['header' => __('Form Name'), 'align' => 'left', 'index' => 'form_name']);
 
         $this->addColumn('form_builder', ['header' => __('Form-Builder'), 'align' => 'left', 'index' => 'formbuilder_data']);
-
-//        $this->addColumn('custom_email', ['header' => __('Email'), 'align' => 'left', 'index' => 'email']);
-
-//        $this->addColumn('custom_phoneno', ['header' => __('Phone No'), 'align' => 'left', 'index' => 'phoneno']);
 
         return parent::_prepareColumns();
     }

@@ -7,35 +7,36 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Dolphin\CustomForms\Model\FormDataFactory;
+use Magento\MediaStorage\Model\File\UploaderFactory;
 use Zend\Log\Filter\Timestamp;
-use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Framework\Mail\Template\TransportBuilder;
-use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Store\Model\StoreManagerInterface;
+use Dolphin\CustomForms\Helper\Data as DolphinHelper;
 use Psr\Log\LoggerInterface;
 
 class Save extends Action
 {
-    const XML_PATH_EMAIL_RECIPIENT_NAME = 'trans_email/ident_general/name';
-    const XML_PATH_EMAIL_RECIPIENT_EMAIL = 'trans_email/ident_general/email';
 
     protected $inlineTranslation;
     protected $transportBuilder;
-    protected $scopeConfig;
     protected $logger;
     protected $storeManager;
     protected $formDataFactory;
-    private JsonFactory $resultJsonFactory;
+    protected $dolphinHelper;
+    protected $resultJsonFactory;
+    protected $uploaderFactory;
 
     public function __construct(
         Context $context,
         FormDataFactory $formDataFactory,
         StateInterface $inlineTranslation,
         TransportBuilder $transportBuilder,
-        ScopeConfigInterface $scopeConfig,
         LoggerInterface $logger,
         StoreManagerInterface $storeManager,
         JsonFactory $resultJsonFactory,
+        DolphinHelper $dolphinHelper,
+        UploaderFactory $uploaderFactory,
         array $data = []
 
     ) {
@@ -43,10 +44,11 @@ class Save extends Action
         $this->formDataFactory = $formDataFactory;
         $this->inlineTranslation = $inlineTranslation;
         $this->transportBuilder = $transportBuilder;
-        $this->scopeConfig = $scopeConfig;
         $this->logger = $logger;
         $this->storeManager = $storeManager;
+        $this->dolphinHelper = $dolphinHelper;
         $this->resultJsonFactory = $resultJsonFactory;
+        $this->uploaderFactory = $uploaderFactory;
     }
 
     public function execute()
@@ -59,6 +61,7 @@ class Save extends Action
                 try {
                     $formId = $formData['form_id'];
                     $widgetName = $formData['form_name'];
+
                     $formDataModel = $this->formDataFactory->create();
                     $formDataModel->setData([
                         'form_id' => $formId,
@@ -66,7 +69,9 @@ class Save extends Action
                         'form_data' => json_encode($formData),
                     ]);
                     $formDataModel->save();
-                    $this->sendEmail($formId, $widgetName, $formData);
+                    if ($this->dolphinHelper->isEnableSender()) {
+                        $this->sendEmail($formId, $widgetName, $formData);
+                    }
                     $result->setData(['success' => true, 'message' => __('Form data saved successfully.')]);
                     return $result;
                 } catch (\Exception $e) {
@@ -84,8 +89,8 @@ class Save extends Action
 
     protected function sendEmail($formId, $widgetName, $formData)
     {
-        $recipientName = $this->scopeConfig->getValue(self::XML_PATH_EMAIL_RECIPIENT_NAME);
-        $recipientEmail = $this->scopeConfig->getValue(self::XML_PATH_EMAIL_RECIPIENT_EMAIL);
+        $recipientName = $this->dolphinHelper->getRecipientName();
+        $recipientEmail = $this->dolphinHelper->getRecipientEmail();
         $store = $this->storeManager->getStore();
 
         $transport = $this->transportBuilder

@@ -5,7 +5,7 @@ require([
     'mage/validation'
 ], function ($, urlBuilder) {
     $(document).ready(function() {
-        $('#form-validate').submit(function(e) {
+        $('.form-validate').submit(function(e) {
             if ($(this).validation() && $(this).validation('isValid')) {
                 e.preventDefault();
 
@@ -21,11 +21,11 @@ require([
                     success: function(response) {
                         if (response.success) {
                             console.log(response.message);
-                            $('.fieldset').before('<div class="messages"><div class="message message-success success"><div>'+response.message+'</div></div></div>');
-                            $("#form-validate").trigger('reset');
+                            $("#fieldset").before('<div class="messages"><div class="message message-success success"><div>'+response.message+'</div></div></div>');
+                            $('.form-validate').trigger('reset');
                         } else {
                             console.log(response.message);
-                            $('.fieldset').before('<div class="messages"><div class="message message-error error"><div>'+response.message+'</div></div></div>');
+                            $("#fieldset").before('<div class="messages"><div class="message message-error error"><div>'+response.message+'</div></div></div>');
                         }
                     },
                     error: function() {

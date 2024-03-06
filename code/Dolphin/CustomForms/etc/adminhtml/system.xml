@@ -13,6 +13,11 @@
                     <label>Enable Module</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="send_email_to_admin" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Email to Admin</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>NOTE: If you want to notify admin that user has submitted the form, Then an only enable this feature.</comment>
+                </field>
             </group>
         </section>
     </system>

@@ -60,13 +60,22 @@
     </dataSource>
     <columns name="grid_records_columns">
         <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">dolphin_grid_listing.dolphin_grid_listing.grid_records_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">id</param>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" path="*/data/inlineEdit" xsi:type="url"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+            </editorConfig>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">dolphin_grid_listing.dolphin_grid_listing.grid_records_columns.actions</item>
-                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="provider" xsi:type="string">dolphin_grid_listing.dolphin_grid_listing.grid_records_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
                     <item name="params" xsi:type="array">
-                        <item name="0" xsi:type="string">edit</item>
-                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
                     </item>
                 </param>
             </childDefaults>
@@ -74,8 +83,7 @@
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="indexField" xsi:type="string">id</item>
-                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
                     <item name="sortOrder" xsi:type="number">0</item>
                 </item>
             </argument>
@@ -93,6 +101,27 @@
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Form Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="form_status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="label" xsi:type="string">Active</item>
+                        <item name="value" xsi:type="string">1</item>
+                    </item>
+                    <item name="1" xsi:type="array">
+                        <item name="label" xsi:type="string">In-active</item>
+                        <item name="value" xsi:type="string">0</item>
+                    </item>
+                </item>
+                <item name="config" xsi:type="array">
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Form Status</item>
                 </item>
             </argument>
         </column>

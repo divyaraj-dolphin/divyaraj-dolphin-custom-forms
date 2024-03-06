@@ -8,6 +8,7 @@
     <table name="dolphin_custom_form" resource="default" engine="innodb" comment="dolphin customer">
         <column xsi:type="smallint" name="id" padding="7" unsigned="false" nullable="false" identity="true" comment="ID" />
         <column xsi:type="varchar" name="form_name" length="20" comment="Form Name" />
+        <column xsi:type="varchar" name="form_status" length="5" comment="Form Status" />
         <column xsi:type="varchar" name="thankyou_message" length="100" comment="Thankyou Message" />
         <column xsi:type="text" name="formbuilder_data" nullable="true" comment="Form Builder Data"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
