@@ -5,7 +5,7 @@ require([
     'mage/validation'
 ], function ($, urlBuilder) {
     $(document).ready(function() {
-        $('.form-validate').submit(function(e) {
+        $('.dolphin-custom-form').submit(function(e) {
             if ($(this).validation() && $(this).validation('isValid')) {
                 e.preventDefault();
 
@@ -22,7 +22,7 @@ require([
                         if (response.success) {
                             console.log(response.message);
                             $("#fieldset").before('<div class="messages"><div class="message message-success success"><div>'+response.message+'</div></div></div>');
-                            $('.form-validate').trigger('reset');
+                            $('.dolphin-custom-form').trigger('reset');
                         } else {
                             console.log(response.message);
                             $("#fieldset").before('<div class="messages"><div class="message message-error error"><div>'+response.message+'</div></div></div>');

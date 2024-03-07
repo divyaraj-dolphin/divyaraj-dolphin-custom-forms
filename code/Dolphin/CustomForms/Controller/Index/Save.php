@@ -4,9 +4,11 @@ namespace Dolphin\CustomForms\Controller\Index;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Dolphin\CustomForms\Model\FormDataFactory;
+use Magento\Framework\FileSystem;
 use Magento\MediaStorage\Model\File\UploaderFactory;
 use Zend\Log\Filter\Timestamp;
 use Magento\Framework\Translate\Inline\StateInterface;
@@ -26,6 +28,7 @@ class Save extends Action
     protected $dolphinHelper;
     protected $resultJsonFactory;
     protected $uploaderFactory;
+    protected $fileSystem;
 
     public function __construct(
         Context $context,
@@ -37,6 +40,7 @@ class Save extends Action
         JsonFactory $resultJsonFactory,
         DolphinHelper $dolphinHelper,
         UploaderFactory $uploaderFactory,
+        FileSystem $fileSystem,
         array $data = []
 
     ) {
@@ -49,16 +53,36 @@ class Save extends Action
         $this->dolphinHelper = $dolphinHelper;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->uploaderFactory = $uploaderFactory;
+        $this->fileSystem = $fileSystem;
     }
 
     public function execute()
     {
         $result = $this->resultJsonFactory->create();
         if ($this->getRequest()->isPost()) {
-            $formData = $this->getRequest()->getPostValue();
+            try {
+                $formData = $this->getRequest()->getPostValue();
+                $fileData = $this->getRequest()->getFiles();
+//                echo "<pre>";
+//                print_r($fileData);
+//                exit;
+                if ($formData) {
+                    foreach ($fileData as $fieldName => $file) {
+                        if (!empty($file['name'])) {
+                            $uploader = $this->uploaderFactory->create(['fileId' => $fieldName]);
+                            $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
+                            $uploader->setAllowRenameFiles(true);
+                            $uploader->setFilesDispersion(false);
+                            $uploader->setAllowCreateFolders(true);
 
-            if ($formData) {
-                try {
+                            $mediaDirectory = $this->fileSystem->getDirectoryWrite(DirectoryList::MEDIA);
+
+                            $resultImage = $uploader->save($mediaDirectory->getAbsolutePath('custom_forms_images/uploads'));
+
+                            $formData = array_merge($formData, [$fieldName => $resultImage['file']]);
+                        }
+                    }
+
                     $formId = $formData['form_id'];
                     $widgetName = $formData['form_name'];
 
@@ -69,15 +93,17 @@ class Save extends Action
                         'form_data' => json_encode($formData),
                     ]);
                     $formDataModel->save();
+
                     if ($this->dolphinHelper->isEnableSender()) {
                         $this->sendEmail($formId, $widgetName, $formData);
                     }
-                    $result->setData(['success' => true, 'message' => __('Form data saved successfully.')]);
-                    return $result;
-                } catch (\Exception $e) {
-                    $result->setData(['success' => false, 'message' => __($e->getMessage())]);
+                    $thankyouMessage = $formData['thankyou_message'];
+                    $result->setData(['success' => true, 'message' => __($thankyouMessage)]);
                     return $result;
                 }
+            } catch (\Exception $e) {
+                $result->setData(['success' => false, 'message' => __($e->getMessage())]);
+                return $result;
             }
         }
 
