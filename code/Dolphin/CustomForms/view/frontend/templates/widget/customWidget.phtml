@@ -15,9 +15,8 @@ if ($form_status) {
             $formBuilderData = $decodedData;
 
             ?>
-            <form class="form create account form-create-account dolphin-custom-form form-validate" action="<?= $block->getUrl('dolphinformsdata/index/save'); ?>"
+            <form class="form create account form-create-account dolphin-custom-form" action="<?= $block->getUrl('dolphinformsdata/index/save'); ?>"
                   method="post"
-                  id="form-validate"
                   enctype="multipart/form-data"
                   autocomplete="off"
                   data-hasrequired="<?= __('* Required Fields') ?>"
@@ -96,7 +95,7 @@ if ($form_status) {
                             <?php elseif ($field['type'] === 'file'): ?>
                                 <label class="label" for="<?php  echo __($field['name']) ?>"><span><?php  echo __($field['label']) ?></span></label>
                                 <div class="control">
-                                    <input type="file" name="<?= $field['name'] ?>" class="<?= $field['className'] ?>"  <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?>>
+                                    <input type="file" name="<?= $field['name'] ?>" class="<?= $field['className'] ?>"  <?= ($field['required']) ? 'data-validate="{required:true}"' : '' ?> <?php if (array_key_exists('multiple', $field) && $field['multiple'] != null): ?> multiple="<?= $field['multiple'] ?>" <?php endif; ?>>
                                     <?php if(array_key_exists('description', $field)): ?>
                                         <div class="field-tooltip toggle">
                                             <span class="field-tooltip-action action-help"
@@ -124,6 +123,9 @@ if ($form_status) {
                     <?php endforeach; ?>
                     <input type="hidden" name="form_id" value="<?= $block->getData('form_id') ?>">
                     <input type="hidden" name="form_name" value="<?= $block->getData('form_name') ?>">
+                    <?php if ($block->getData('thankyou_message') && $block->getData('thankyou_message') != null): ?>
+                        <input type="hidden" name="thankyou_message" value="<?= $block->getData('thankyou_message') ?>">
+                    <?php endif; ?>
                 </fieldset>
             </form>
             <?php

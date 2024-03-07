@@ -44,7 +44,7 @@ class FormData extends Column
                 $htmlTable = '<table class="form_submission_data" style="border: 2px solid #d6d6d6">';
                 foreach ($yamlData as $key => $value) {
                     // Ensure $value is not an array
-                    if ($key == 'form_key' || $key == 'form_name') {
+                    if ($key == 'form_key' || $key == 'form_name' || $key == 'form_id') {
                         continue;
                     }
 
