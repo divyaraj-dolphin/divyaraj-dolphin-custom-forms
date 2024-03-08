@@ -19,6 +19,7 @@
         <column xsi:type="smallint" name="id" padding="7" unsigned="false" nullable="false" identity="true" comment="ID" />
         <column xsi:type="varchar" name="form_id" length="20" comment="Form_Id" />
         <column xsi:type="varchar" name="form_name" length="100" comment="Form_Name" />
+        <column xsi:type="varchar" name="form_status" length="100" comment="Form_Status" />
         <column xsi:type="text" name="form_data" comment="Form_Data" />
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id" />

@@ -15,8 +15,7 @@ if ($form_status) {
             $formBuilderData = $decodedData;
 
             ?>
-            <form class="form create account form-create-account dolphin-custom-form" action="<?= $block->getUrl('dolphinformsdata/index/save'); ?>"
-                  method="post"
+            <form class="form create account form-create-account dolphin-custom-form" method="post"
                   enctype="multipart/form-data"
                   autocomplete="off"
                   data-hasrequired="<?= __('* Required Fields') ?>"

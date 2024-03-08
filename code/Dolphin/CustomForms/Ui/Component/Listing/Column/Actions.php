@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 
 class Actions extends Column
 {
-    const EDIT_PATH = 'dolphinforms/index/newform';
+    const EDIT_PATH = 'dolphinforms/index/SubmittedDataDetailedView';
 
     protected $urlBuilder;
     protected $logger;

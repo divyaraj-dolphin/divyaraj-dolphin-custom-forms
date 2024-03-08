@@ -65,8 +65,10 @@ class Save extends Action
                 $fileData = $this->getRequest()->getFiles();
 //                echo "<pre>";
 //                print_r($fileData);
+//                print_r($_FILES);
 //                exit;
                 if ($formData) {
+                    $mediaDirectory = $this->fileSystem->getDirectoryWrite(DirectoryList::MEDIA);
                     foreach ($fileData as $fieldName => $file) {
                         if (!empty($file['name'])) {
                             $uploader = $this->uploaderFactory->create(['fileId' => $fieldName]);
@@ -74,8 +76,6 @@ class Save extends Action
                             $uploader->setAllowRenameFiles(true);
                             $uploader->setFilesDispersion(false);
                             $uploader->setAllowCreateFolders(true);
-
-                            $mediaDirectory = $this->fileSystem->getDirectoryWrite(DirectoryList::MEDIA);
 
                             $resultImage = $uploader->save($mediaDirectory->getAbsolutePath('custom_forms_images/uploads'));
 

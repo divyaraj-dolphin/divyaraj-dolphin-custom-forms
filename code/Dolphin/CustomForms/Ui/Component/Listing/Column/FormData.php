@@ -34,29 +34,20 @@ class FormData extends Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as &$item) {
-                // Assuming your JSON data is stored in a column named 'form_data'
-                $jsonData = $item['form_data'];
+                // Assuming your YAML data is stored in a column named 'form_data'
+                if (isset($item['form_data'])) {
+                    $yamlData = $item['form_data'];
 
-                // Convert JSON to YAML
-                $yamlData = Yaml::parse($jsonData);
+                    // Convert YAML to an associative array
+                    $dataArray = Yaml::parse($yamlData);
 
-                // Generate HTML table from YAML data
-                $htmlTable = '<table class="form_submission_data" style="border: 2px solid #d6d6d6">';
-                foreach ($yamlData as $key => $value) {
-                    // Ensure $value is not an array
-                    if ($key == 'form_key' || $key == 'form_name' || $key == 'form_id') {
-                        continue;
-                    }
-
-                    if (is_array($value)) {
-                        $value = implode(", ", $value);
-                    }
-                    $htmlTable .= "<tr><td style='border: none'>$key</td><td style='border: none;'>$value</td></tr>";
+                    // Format the array for display
+                    $formattedYaml = Yaml::dump($dataArray);
+                    // Replace the original YAML data with the formatted YAML
+                    $item['form_data'] = "<pre>".$formattedYaml;
+                } else {
+                    $item['form_data'] = ''; // Set a default value or handle the case appropriately.
                 }
-                $htmlTable .= '</table>';
-
-                // Replace the JSON data with HTML table
-                $item['form_data'] = $htmlTable;
             }
         }
         return $dataSource;
