@@ -81,7 +81,7 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string">Form Name</item>
                     <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">true</item><!-- this validates it as required -->
+                        <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
                 </item>
             </argument>
@@ -112,7 +112,7 @@
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="cols" xsi:type="number">30</item>
                     <item name="rows" xsi:type="number">5</item>
-                    <item name="label" translate="true" xsi:type="string">Write a Thankyou Message...</item>
+                    <item name="label" translate="true" xsi:type="string">Write a Thankyou Message</item>
                     <item name="dataType" translate="true" xsi:type="string">text</item>
                     <item name="validation" xsi:type="array">
                         <item name="custom-validation" xsi:type="boolean">false</item>
@@ -124,6 +124,33 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="store_views">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Store Views</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="canShow" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="string">50</item>
+            </item>
+        </argument>
+        <field name="storeviews">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Store View</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="dataScope" xsi:type="string">store_id</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>

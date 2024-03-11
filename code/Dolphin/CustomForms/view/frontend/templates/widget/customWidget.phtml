@@ -2,9 +2,26 @@
 /** @var Dolphin\CustomForms\Block\Widget\CustomFormWidget $block */
 
 $formBuilderData = $block->getData('formbuilder_data');
-
+$store = $block->getCurrentStore();
+$storeIdFormBuilder = $block->getData('store_ids');
+$storeIdArray = explode(',', $storeIdFormBuilder);
+//echo "<pre>";
+//print_r($storeIdArray);
+//exit;
+//if ($store->getId() == in_array(0, $storeIdArray)) {
+//    echo "Match Found";
+//} else {
+//    echo "Match Not Found";
+//}
+//exit;
+//if (in_array($store->getId(), $storeIdArray)) {
+//    echo "Ids Matched";
+//} else {
+//    echo "Ids not Matched";
+//}
+//exit;
 $form_status = $block->getData('form_status');
-if ($form_status) {
+if ($form_status && in_array($store->getId(), $storeIdArray) || $store->getId() == in_array(0, $storeIdArray)) {
     if (is_string($formBuilderData) && !empty($formBuilderData)) {
         $decodedData = json_decode($formBuilderData, true);
 //    echo "<pre>";
