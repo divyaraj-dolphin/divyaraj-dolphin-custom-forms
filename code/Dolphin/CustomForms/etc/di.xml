@@ -17,6 +17,7 @@
             <argument name="collections" xsi:type="array">
                 <item name="grid_record_grid_list_data_source" xsi:type="string">Dolphin\CustomForms\Model\ResourceModel\Grid\Collection</item>
                 <item name="dolphin_form_submission_data" xsi:type="string">Dolphin\CustomForms\Model\ResourceModel\FormSubmitData\Grid\Collection</item>
+<!--                <item name="form_submission_data_view" xsi:type="string">Dolphin\CustomForms\Model\ResourceModel\Grid\Collection</item>-->
             </argument>
         </arguments>
     </type>

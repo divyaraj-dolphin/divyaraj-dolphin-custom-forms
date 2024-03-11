@@ -8,9 +8,9 @@ use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
 use Psr\Log\LoggerInterface;
 
-class Actions extends Column
+class view extends Column
 {
-    const EDIT_PATH = 'dolphinforms/index/newform';
+    const EDIT_PATH = 'dolphinforms/index/submitteddatadetailedview';
 
     protected $urlBuilder;
     protected $logger;

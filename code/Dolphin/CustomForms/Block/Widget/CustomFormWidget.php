@@ -9,6 +9,7 @@ use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Widget\Block\BlockInterface;
 use Psr\Log\LoggerInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 class CustomFormWidget extends \Magento\Framework\View\Element\Template implements BlockInterface, IdentityInterface
 {
@@ -20,18 +21,26 @@ class CustomFormWidget extends \Magento\Framework\View\Element\Template implemen
     protected $logger;
 
     private $block;
+    protected $storeManager;
 
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Cms\Model\Template\FilterProvider $filterProvider,
         \Dolphin\CustomForms\Model\DolphinTableFactory $blockFactory,
+        StoreManagerInterface $storeManager,
         LoggerInterface $logger,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->_filterProvider = $filterProvider;
         $this->_blockFactory = $blockFactory;
+        $this->storeManager = $storeManager;
         $this->logger = $logger;
+    }
+
+    public function getCurrentStore()
+    {
+        return $this->_storeManager->getStore();
     }
 
     private function getBlockById(int $blockId): ?DolphinTable

@@ -22,9 +22,16 @@ class Status implements ArrayInterface
     public function getOptions()
     {
         return [
-            'active' => __('Active'),
-            'inactive' => __('Inactive'),
-            'pending' => __('Pending'),
+            'New' => __('New'),
+            'viewed' => __('Viewed'),
+            'in_progress' => __('In Processing'),
+            'on_hold' => __('On Hold'),
+            'awaiting_user' => __('Awaiting User'),
+            'answered' => __('Answered'),
+            'approved' => __('Approved'),
+            'rejected' => __('Rejected'),
+            'closed' => __('Closed'),
+            'complete' => __('Complete'),
         ];
     }
 }
