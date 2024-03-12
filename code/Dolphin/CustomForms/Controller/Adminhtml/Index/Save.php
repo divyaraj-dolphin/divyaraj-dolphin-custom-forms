@@ -35,6 +35,10 @@ class Save extends Action
                 // Load the existing record
                 $model = $this->customFactory->create()->load($data['id']);
                 $data['formbuilder_hidden_data'] = $model->getData('formbuilder_hidden_data');
+//                echo "<pre>";
+//                print_r($model->getData('store_ids'));
+//                exit();
+                $data['store_ids'] = $model->getData('store_ids');
                 $message = 'Data updated successfully.';
             } else {
                 // If 'id' is not provided, create a new record
@@ -45,7 +49,7 @@ class Save extends Action
             $storeIds = isset($data['store_id']) ? $data['store_id'] : [];
             $storeIdsString = implode(',', $storeIds);
 
-            $storeNames = $this->getStoreNamesByIds($storeIds);
+//            $storeNames = $this->getStoreNamesByIds($storeIds);
 
             $model->addData([
                 "form_name" => $data['form_name'],
@@ -68,13 +72,13 @@ class Save extends Action
         return $resultRedirect;
     }
 
-    public function getStoreNamesByIds($storeIds)
-    {
-        $storeNames = [];
-        foreach ($storeIds as $storeId) {
-            $store = $this->storeManager->getStore($storeId);
-            $storeNames[] = $store->getName();
-        }
-        return $storeNames;
-    }
+//    public function getStoreNamesByIds($storeIds)
+//    {
+//        $storeNames = [];
+//        foreach ($storeIds as $storeId) {
+//            $store = $this->storeManager->getStore($storeId);
+//            $storeNames[] = $store->getName();
+//        }
+//        return $storeNames;
+//    }
 }

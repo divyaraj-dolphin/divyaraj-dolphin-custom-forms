@@ -91,6 +91,7 @@ class Save extends Action
                         'form_id' => $formId,
                         'form_name' => $widgetName,
                         'form_data' => json_encode($formData),
+                        'form_status' => 'new',
                     ]);
                     $formDataModel->save();
 

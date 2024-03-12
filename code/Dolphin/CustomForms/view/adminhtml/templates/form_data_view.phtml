@@ -1,0 +1,48 @@
+<?php
+$block = $this->getLayout()->createBlock('\Dolphin\CustomForms\Block\Adminhtml\FormSubmittedData');
+$collection = $block->getCollection();
+
+if ($collection->getSize() > 0) {
+    $submittedData = $collection->getFirstItem()->getData();
+    $jsonToArray = json_decode($submittedData['form_data'], true) ? : [];
+    unset($jsonToArray['form_id'], $jsonToArray['form_name']);
+} else {
+    echo "No data found for the specified ID.";
+}
+?>
+
+<div class="admin__fieldset">
+    <div class="admin__field">
+        <div class="admin__field-label">Form Submission</div>
+        <div class="admin__field-control">
+            <table class="data-grid">
+                <thead>
+                <tr>
+                    <th class="data-grid-th">
+                        Field Id
+                    </th>
+                    <th class="data-grid-th">
+                        Value
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($jsonToArray as $key => $value): ?>
+                    <tr class="data-row">
+                        <td><?php echo $key; ?></td>
+                        <td>
+                            <?php
+                            if (is_array($value)) {
+                                echo implode(', ', $value);
+                            } else {
+                                echo $value;
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

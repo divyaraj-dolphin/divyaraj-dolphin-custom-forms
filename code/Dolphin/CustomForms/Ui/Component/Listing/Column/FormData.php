@@ -36,15 +36,20 @@ class FormData extends Column
             foreach ($dataSource['data']['items'] as &$item) {
                 // Assuming your YAML data is stored in a column named 'form_data'
                 if (isset($item['form_data'])) {
-                    $yamlData = $item['form_data'];
+                    $jsonData = $item['form_data'];
 
                     // Convert YAML to an associative array
-                    $dataArray = Yaml::parse($yamlData);
+                    $yamlData = Yaml::parse($jsonData);
 
-                    // Format the array for display
-                    $formattedYaml = Yaml::dump($dataArray);
+                    unset($yamlData['form_id'], $yamlData['form_name'], $yamlData['form_key']);
+//                    echo "<pre>";
+//                    print_r($yamlData);
+//                    exit;
+
+                    $formattedYaml = Yaml::dump($yamlData);
                     // Replace the original YAML data with the formatted YAML
                     $item['form_data'] = "<pre>".$formattedYaml;
+                    // Format the array for display
                 } else {
                     $item['form_data'] = ''; // Set a default value or handle the case appropriately.
                 }

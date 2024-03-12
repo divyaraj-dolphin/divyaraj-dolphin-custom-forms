@@ -22,7 +22,7 @@ class Status implements ArrayInterface
     public function getOptions()
     {
         return [
-            'New' => __('New'),
+            'new' => __('New'),
             'viewed' => __('Viewed'),
             'in_progress' => __('In Processing'),
             'on_hold' => __('On Hold'),

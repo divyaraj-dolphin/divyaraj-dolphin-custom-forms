@@ -12,7 +12,7 @@
         </item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
         <item name="buttons" xsi:type="array">
-            <item name="back" xsi:type="string">Dolphin\CustomForms\Block\Adminhtml\Edit\Button\Back</item>
+<!--            <item name="back" xsi:type="string">Dolphin\CustomForms\Block\Adminhtml\Edit\Button\Back</item>-->
             <item name="save" xsi:type="string">Dolphin\CustomForms\Block\Adminhtml\Edit\Save</item>
         </item>
     </argument>
@@ -22,6 +22,15 @@
             <argument name="name" xsi:type="string">form_submission_data_view</argument>
             <argument name="primaryFieldName" xsi:type="string">id</argument>
             <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                    <item name="submit_url" xsi:type="url" path="*/*/saveformsubmitteddata"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">id</item>
+                    </item>
+                </item>
+            </argument>
         </argument>
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
@@ -37,7 +46,7 @@
                 <item name="sortOrder" xsi:type="number">20</item>
             </item>
         </argument>
-        <field name="custom_id">
+        <field name="form_status">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">Dolphin\CustomForms\Model\Config\Source\Status</item>
                 <item name="config" xsi:type="array">
@@ -49,21 +58,19 @@
                 </item>
             </argument>
         </field>
-        <field name="storeviews">
+        <htmlContent name="form_data_view">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">int</item>
-                    <item name="label" xsi:type="string" translate="true">Store View</item>
-                    <item name="formElement" xsi:type="string">multiselect</item>
-                    <item name="source" xsi:type="string">page</item>
-                    <item name="dataScope" xsi:type="string">store_id</item>
-                    <item name="default" xsi:type="string">0</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">true</item>
-                    </item>
+                    <item name="label" xsi:type="string" translate="true">Custom Label</item>
                 </item>
             </argument>
-        </field>
+            <block name="html_contents">
+                <arguments>
+                    <argument name="template" xsi:type="string">
+                        Dolphin_CustomForms::form_data_view.phtml
+                    </argument>
+                </arguments>
+            </block>
+        </htmlContent>
     </fieldset>
 </form>
