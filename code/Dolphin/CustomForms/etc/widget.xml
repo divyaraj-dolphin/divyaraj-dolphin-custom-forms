@@ -14,6 +14,20 @@
                     </data>
                 </block>
             </parameter>
+            <parameter name="custom_dropdown" xsi:type="select" visible="true" required="true" sort_order="30">
+                <label translate="true">Display Form as</label>
+                <options>
+                    <option name="option_1" value="regular_form">
+                        <label translate="true">Regular Form</label>
+                    </option>
+                    <option name="option_2" value="popup_form">
+                        <label translate="true">Popup Form</label>
+                    </option>
+                    <option name="option_3" value="slide_out_form">
+                        <label translate="true">Slide-out Form</label>
+                    </option>
+                </options>
+            </parameter>
         </parameters>
     </widget>
 </widgets>

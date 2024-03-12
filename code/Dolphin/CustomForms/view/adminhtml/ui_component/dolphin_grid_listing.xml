@@ -142,15 +142,11 @@
             </argument>
         </column>
         <column name="store_ids" class="Dolphin\CustomForms\Ui\Component\Listing\Column\Store">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Dolphin_CustomForms/js/ui/grid/columns/html</item>
-                    <item name="align" xsi:type="string">left</item>
-                    <item name="sortable" xsi:type="boolean">false</item>
-                    <item name="label" xsi:type="string" translate="true">Store View</item>
-                    <item name="sortOrder" xsi:type="number">60</item>
-                </item>
-            </argument>
+            <settings>
+                <label translate="true">Store View</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+            </settings>
         </column>
         <actionsColumn name="actions" class="Dolphin\CustomForms\Ui\Component\Listing\Column\Actions">
             <argument name="data" xsi:type="array">

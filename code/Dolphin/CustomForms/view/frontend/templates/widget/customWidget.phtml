@@ -4,7 +4,7 @@
 $formBuilderData = $block->getData('formbuilder_data');
 $store = $block->getCurrentStore();
 $storeIdFormBuilder = $block->getData('store_ids');
-$storeIdArray = explode(',', $storeIdFormBuilder);
+$storeIdArray = explode(',', $storeIdFormBuilder ?? '');
 //echo "<pre>";
 //print_r($storeIdArray);
 //exit;
