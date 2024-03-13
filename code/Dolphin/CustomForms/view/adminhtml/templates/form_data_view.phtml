@@ -1,6 +1,13 @@
 <?php
+
 $block = $this->getLayout()->createBlock('\Dolphin\CustomForms\Block\Adminhtml\FormSubmittedData');
 $collection = $block->getCollection();
+$filePath = $block->getFilePath();
+//$fileName = $collection->getData();
+//echo "<pre>";
+//print_r($fileName[0]['uploaded_file']);
+//exit;
+
 
 if ($collection->getSize() > 0) {
     $submittedData = $collection->getFirstItem()->getData();
@@ -43,6 +50,12 @@ if ($collection->getSize() > 0) {
                 <?php endforeach; ?>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="admin__field">
+        <div class="admin__field-label">Uploaded File</div>
+        <div class="admin__field-control" style="border: 1px solid #ccc; padding: 12px">
+            <a href="<?= $filePath ?>" target="_blank"><?php echo $submittedData['uploaded_file'] ?></a>
         </div>
     </div>
 </div>

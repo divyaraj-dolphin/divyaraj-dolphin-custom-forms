@@ -14,19 +14,47 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="custom_dropdown" xsi:type="select" visible="true" required="true" sort_order="30">
+            <parameter name="form_style" xsi:type="select" visible="true" required="true" sort_order="30">
                 <label translate="true">Display Form as</label>
                 <options>
-                    <option name="option_1" value="regular_form">
+                    <option name="regular_form" value="regular_form">
                         <label translate="true">Regular Form</label>
                     </option>
-                    <option name="option_2" value="popup_form">
+                    <option name="popup_form" value="popup_form">
                         <label translate="true">Popup Form</label>
                     </option>
-                    <option name="option_3" value="slide_out_form">
+                    <option name="slide_out_form" value="slide_out_form">
                         <label translate="true">Slide-out Form</label>
                     </option>
                 </options>
+            </parameter>
+            <parameter name="popup_link_button" xsi:type="select" visible="true" required="true" sort_order="40">
+                <label translate="true">Pop-up link/button</label>
+                <depends>
+                    <parameter name="form_style" value="popup_form" />
+                </depends>
+                <options>
+                    <option name="link" value="link">
+                        <label translate="true">Link</label>
+                    </option>
+                    <option name="button" value="button">
+                        <label translate="true">Button</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="link_button_text" xsi:type="text" visible="true" required="true" sort_order="50">
+                <label translate="true">Link/button text</label>
+                <depends>
+                    <parameter name="form_style" value="popup_form" />
+                </depends>
+            </parameter>
+            <parameter name="auto_hide" xsi:type="select" visible="true" sort_order="60"
+                       source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Auto hide</label>
+                <description>Form will be hide after submission</description>
+                <depends>
+                    <parameter name="form_style" value="popup_form" />
+                </depends>
             </parameter>
         </parameters>
     </widget>
