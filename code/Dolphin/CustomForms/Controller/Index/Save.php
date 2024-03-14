@@ -79,7 +79,9 @@ class Save extends Action
 
                             $resultImage = $uploader->save($mediaDirectory->getAbsolutePath('custom_forms_images/uploads'));
 
-                            $formData = array_merge($formData, [$fieldName => $resultImage['file']]);
+                            $fileToBeUpload = $resultImage['file'];
+
+//                            $formData = array_merge($formData, [$fieldName => $resultImage['file']]);
                         }
                     }
 
@@ -90,8 +92,9 @@ class Save extends Action
                     $formDataModel->setData([
                         'form_id' => $formId,
                         'form_name' => $widgetName,
-                        'form_data' => json_encode($formData),
                         'form_status' => 'new',
+                        'form_data' => json_encode($formData),
+                        'uploaded_file' => $fileToBeUpload
                     ]);
                     $formDataModel->save();
 
